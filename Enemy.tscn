@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://dodge_assets/art/enemyWalking_1.png" type="Texture" id=1]
+[ext_resource path="res://dodge_assets/art/enemySwimming_2.png" type="Texture" id=2]
+[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_1.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/enemyWalking_2.png" type="Texture" id=4]
+[ext_resource path="res://dodge_assets/art/enemySwimming_1.png" type="Texture" id=5]
+[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_2.png" type="Texture" id=6]
+[ext_resource path="res://Enemy.gd" type="Script" id=7]
+
+[sub_resource type="PhysicsMaterial" id=3]
+bounce = 0.52
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 24.1192
+height = 18.8283
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "swim",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "fly",
+"speed": 5.0
+} ]
+
+[node name="Mob" type="RigidBody2D" groups=[
+"mobs",
+]]
+physics_material_override = SubResource( 3 )
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+min_speed = 75
+max_speed = 175
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.56396
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+animation = "walk"
+frame = 1
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

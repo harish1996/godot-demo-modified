@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://dodge_assets/art/playerGrey_up1.png" type="Texture" id=2]
+[ext_resource path="res://dodge_assets/art/playerGrey_walk2.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=4]
+[ext_resource path="res://dodge_assets/art/playerGrey_walk1.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 32.4163
+height = 16.8321
+
+[node name="Player" type="Area2D"]
+position = Vector2( 76.1718, 42.7631 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 200
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 1 )
+animation = "up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 2 )
