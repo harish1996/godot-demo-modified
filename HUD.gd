@@ -11,6 +11,7 @@ signal start_game
 func _ready():
 	$MessageTimer.connect("timeout", self, "on_msg_timeout" )
 	$Restart.connect("pressed",self, "on_start" )
+	$Instructions.show()
 	pass # Replace with function body.
 
 func show_message( text ):
@@ -23,14 +24,14 @@ func on_msg_timeout():
 	
 func on_start():
 	$Restart.hide()
+	$Instructions.hide()
 	emit_signal("start_game")
 	
 func game_over():
 	show_message("YOU DIED")
 	yield($MessageTimer, "timeout" )
-	show_message("Fight !")
-	yield($MessageTimer,"timeout" )
 	$Restart.show()
+	$Instructions.show()
 	
 func update_score(score):
 	$Score.text = str(score)

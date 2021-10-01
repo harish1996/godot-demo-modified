@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://dodge_assets/art/playerGrey_up1.png" type="Texture" id=2]
 [ext_resource path="res://dodge_assets/art/playerGrey_walk2.png" type="Texture" id=3]
 [ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=4]
 [ext_resource path="res://dodge_assets/art/playerGrey_walk1.png" type="Texture" id=5]
+[ext_resource path="res://PID.gd" type="Script" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -23,13 +24,14 @@ animations = [ {
 radius = 32.4163
 height = 16.8321
 
+[sub_resource type="PointMesh" id=3]
+
+[sub_resource type="MeshTexture" id=4]
+mesh = SubResource( 3 )
+
 [node name="Player" type="Area2D"]
-position = Vector2( 76.1718, 42.7631 )
+position = Vector2( 78.5597, 42.7631 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-speed = 200
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.3, 0.3 )
@@ -39,3 +41,23 @@ animation = "up"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 2 )
+
+[node name="AccelerationPointer" type="Polygon2D" parent="."]
+rotation = 6.28319
+scale = Vector2( 0.5, 0.5 )
+color = Color( 0.85098, 0.105882, 0.105882, 1 )
+texture = SubResource( 4 )
+polygon = PoolVector2Array( 0, 10, 40, 10, 40, 30, 50, 0, 40, -30, 40, -10, 0, -10 )
+uv = PoolVector2Array( -5380, -1690, -5320, -1690, -5320, -1710, -5300, -1680, -5320, -1650, -5320, -1670, -5380, -1670 )
+
+[node name="VelocityPointer" type="Polygon2D" parent="."]
+rotation = 6.28319
+scale = Vector2( 0.5, 0.5 )
+color = Color( 0.129412, 0.796078, 0.329412, 1 )
+texture = SubResource( 4 )
+polygon = PoolVector2Array( 0, 10, 40, 10, 40, 30, 50, 0, 40, -30, 40, -10, 0, -10 )
+uv = PoolVector2Array( -5380, -1690, -5320, -1690, -5320, -1710, -5300, -1680, -5320, -1650, -5320, -1670, -5380, -1670 )
+
+[node name="PID" type="Node" parent="."]
+script = ExtResource( 6 )
+_Ki = 0.75
